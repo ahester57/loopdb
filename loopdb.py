@@ -70,7 +70,7 @@ class LoopResource(object):
             print(resp.media)
 
 
-redis = Connectors.redis_connect()
+redis = RedisConnector.redis_connect()
 app = falcon.App()
 loop = LoopResource(redis)
 
@@ -82,6 +82,7 @@ class LoopServer(threading.Thread):
     def __init__(self, wsgi_app, host='127.0.0.1', port=8080):
         super().__init__()
         self._server = make_server(host, port, wsgi_app)
+        self.daemon = True
 
     def run(self):
         self._server.serve_forever(poll_interval=0.5)
@@ -95,7 +96,6 @@ class LoopServer(threading.Thread):
 if __name__ == '__main__':
 
     loop_server = LoopServer(app)
-    loop_server.daemon = True
 
     def signal_handler(signal_num=None, frame=None):
         print('looping out')
