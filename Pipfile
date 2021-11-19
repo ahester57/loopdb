@@ -7,6 +7,7 @@ name = "pypi"
 mariadb = "*"
 falcon = "*"
 redis = "*"
+redis-connector = {path = "./redis_connector"}
 
 [dev-packages]
 

@@ -6,23 +6,7 @@ import threading
 import time
 
 from wsgiref.simple_server import make_server
-
-
-class RedisConnector(object):
-
-    @staticmethod
-    def redis_connect():
-        try:
-            pool = redis.ConnectionPool(
-                host='localhost',
-                port=6379,
-                db=0
-            )
-            r = redis.Redis(connection_pool=pool)
-            print(f'redis success: {r}')
-            return r
-        except:
-            print('redis failure');
+from redis_connector import redis_connector
 
 
 class LoopResource(object):
@@ -70,7 +54,8 @@ class LoopResource(object):
             print(resp.media)
 
 
-redis = RedisConnector.redis_connect()
+print(redis_connector)
+redis = redis_connector.RedisConnector.connect()
 app = falcon.App()
 loop = LoopResource(redis)
 
