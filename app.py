@@ -1,5 +1,4 @@
 import falcon
-import redis
 import signal
 import sys
 import time
@@ -10,9 +9,11 @@ from simple_server import LoopServer
 
 
 print(redis_connector)
-redis = redis_connector.connect()
+redis_instance = redis_connector.connect()
 app = falcon.App()
-loop = loop_resource.LoopResource(redis)
+
+
+loop = loop_resource.LoopResource(redis_instance)
 
 app.add_route('/loop', loop)
 
