@@ -5,8 +5,8 @@ import sys
 import threading
 import time
 
-from wsgiref.simple_server import make_server
 from redis_connector import redis_connector
+from simple_server import LoopServer
 
 
 class LoopResource(object):
@@ -60,22 +60,6 @@ app = falcon.App()
 loop = LoopResource(redis)
 
 app.add_route('/loop', loop)
-
-
-class LoopServer(threading.Thread):
-
-    def __init__(self, wsgi_app, host='127.0.0.1', port=8080):
-        super().__init__()
-        self._server = make_server(host, port, wsgi_app)
-        self.daemon = True
-
-    def run(self):
-        self._server.serve_forever(poll_interval=0.5)
-
-    def stop(self):
-        print('exiting')
-        self._server.shutdown()
-        self.join()
 
 
 if __name__ == '__main__':
