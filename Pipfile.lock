@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4af6597468353bbadd1c44f41c32a03d5410e822508e7d723bdeb9e7588e197d"
+            "sha256": "c16b433c18efaff96fd5f6a8719b60bea4c7fd57cf405d10629f024a66f145b9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -56,6 +56,10 @@
             ],
             "index": "pypi",
             "version": "==3.0.1"
+        },
+        "loop-resources": {
+            "path": "./loop_resources",
+            "version": "==0.1"
         },
         "mariadb": {
             "hashes": [
