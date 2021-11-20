@@ -3,7 +3,7 @@ import signal
 import sys
 import time
 
-from loop_resources import loop_resource
+from loop_resources import loop_resource, dupe_resource
 from redis_connector import redis_connector
 from simple_server import LoopServer
 
@@ -14,9 +14,10 @@ app = falcon.App()
 
 
 loop = loop_resource.LoopResource(redis_instance)
+dupe = dupe_resource.DupeResource()
 
 app.add_route('/loop', loop)
-
+app.add_route('/dupe', dupe)
 
 if __name__ == '__main__':
 
