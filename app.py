@@ -1,4 +1,5 @@
 import falcon
+import os
 import signal
 import sys
 import time
@@ -10,14 +11,31 @@ from simple_server import LoopServer
 
 class App(object):
     def __init__(self, redis_host='localhost', redis_port=6379, falcon_host='localhost', falcon_port=8080):
-        self._redis_host = redis_host
-        self._redis_port = redis_port
-        self._redis_instance = RedisConnector(redis_host, redis_port)
+        # setup Redis
+        if (os.environ.get('LOOP_REDIS_HOST') is not None):
+            self._redis_host = os.environ.get('LOOP_REDIS_HOST')
+        else:
+            self._redis_host = redis_host
+        if (os.environ.get('LOOP_REDIS_PORT') is not None):
+            self._redis_port = os.environ.get('LOOP_REDIS_PORT')
+        else:
+            self._redis_port = redis_port
+        self._redis_instance = RedisConnector(self._redis_host, self._redis_port)
+
+        # setup Falcon
         self.create_resources()
         self._falcon_app = falcon.App()
         self.create_routes()
-        self._falcon_host = falcon_host
-        self._falcon_port = falcon_port
+
+        # setup Server
+        if (os.environ.get('LOOP_FALCON_HOST') is not None):
+            self._falcon_host = os.environ.get('LOOP_FALCON_HOST')
+        else:
+            self._falcon_host = falcon_host
+        if (os.environ.get('LOOP_FALCON_PORT') is not None):
+            self._falcon_port = os.environ.get('LOOP_FALCON_PORT')
+        else:
+            self._falcon_port = falcon_port
         self.create_server()
 
     def create_resources(self):
