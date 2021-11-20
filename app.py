@@ -9,11 +9,15 @@ from simple_server import LoopServer
 
 
 class App(object):
-    def __init__(self):
-        self._redis_instance = RedisConnector()
-        self._falcon_app = falcon.App()
+    def __init__(self, redis_host='localhost', redis_port=6379, falcon_host='localhost', falcon_port=8080):
+        self._redis_host = redis_host
+        self._redis_port = redis_port
+        self._redis_instance = RedisConnector(redis_host, redis_port)
         self.create_resources()
+        self._falcon_app = falcon.App()
         self.create_routes()
+        self._falcon_host = falcon_host
+        self._falcon_port = falcon_port
         self.create_server()
 
     def create_resources(self):
@@ -25,7 +29,7 @@ class App(object):
         self._falcon_app.add_route('/dupe', self._dupe)
 
     def create_server(self):
-        self._loop_server = LoopServer(self.get_falcon_app())
+        self._loop_server = LoopServer(self.get_falcon_app(), self._falcon_host, self._falcon_port)
 
     def get_falcon_app(self):
         return self._falcon_app
