@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c16b433c18efaff96fd5f6a8719b60bea4c7fd57cf405d10629f024a66f145b9"
+            "sha256": "04882513388fc1034088d75c8a8d4dfa2eaea5f424d09592640db40acfb949f6"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -57,8 +57,8 @@
             "index": "pypi",
             "version": "==3.0.1"
         },
-        "loop-resources": {
-            "path": "./loop_resources",
+        "loopresources": {
+            "path": "./loopresources",
             "version": "==0.1"
         },
         "mariadb": {
@@ -86,8 +86,8 @@
             "index": "pypi",
             "version": "==4.0.1"
         },
-        "redis-connector": {
-            "path": "./redis_connector",
+        "redisconnector": {
+            "path": "./redisconnector",
             "version": "==0.1"
         },
         "wrapt": {

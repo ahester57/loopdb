@@ -1,0 +1,5 @@
+setup.py
+loopresources.egg-info/PKG-INFO
+loopresources.egg-info/SOURCES.txt
+loopresources.egg-info/dependency_links.txt
+loopresources.egg-info/top_level.txt

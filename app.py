@@ -3,19 +3,19 @@ import signal
 import sys
 import time
 
-from loop_resources import loop_resource, dupe_resource
-from redis_connector import redis_connector
+from loopresources import LoopResource, DupeResource
+from redisconnector import RedisConnector
 from simple_server import LoopServer
 
 
-print(redis_connector)
-redis_instance = redis_connector.RedisConnector()
+print(RedisConnector)
+redis_instance = RedisConnector()
 print(redis_instance)
 app = falcon.App()
 
 
-loop = loop_resource.LoopResource(redis_instance)
-dupe = dupe_resource.DupeResource()
+loop = LoopResource(redis_instance)
+dupe = DupeResource()
 
 app.add_route('/loop', loop)
 app.add_route('/dupe', dupe)

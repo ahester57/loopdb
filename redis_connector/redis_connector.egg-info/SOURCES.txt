@@ -1,6 +1,0 @@
-redis_connector.py
-setup.py
-redis_connector.egg-info/PKG-INFO
-redis_connector.egg-info/SOURCES.txt
-redis_connector.egg-info/dependency_links.txt
-redis_connector.egg-info/top_level.txt

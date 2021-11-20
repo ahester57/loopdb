@@ -7,8 +7,8 @@ name = "pypi"
 mariadb = "*"
 falcon = "*"
 redis = "*"
-redis-connector = {path = "./redis_connector"}
-loop-resources = {path = "./loop_resources"}
+redisconnector = {path = "./redisconnector"}
+loopresources = {path = "./loopresources"}
 
 [dev-packages]
 
