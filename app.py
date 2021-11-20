@@ -9,7 +9,8 @@ from simple_server import LoopServer
 
 
 print(redis_connector)
-redis_instance = redis_connector.connect()
+redis_instance = redis_connector.RedisConnector()
+print(redis_instance)
 app = falcon.App()
 
 
