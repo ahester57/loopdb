@@ -56,7 +56,10 @@ class App(object):
         self._loop_server.start()
 
     def stop_server(self):
-        self._loop_server.stop()
+        print('exiting simple_server')
+        self._loop_server.get_server().shutdown()
+        print('done exiting simple_server')
+        self._loop_server.join()
 
     def __repr__(self):
         return f'''
@@ -66,14 +69,45 @@ Server: {self._loop_server}
 '''
 
 
+# This global variable is to keep track of multiple presses of Ctrl^C
+handling_sigint = False
+
+
 if __name__ == '__main__':
 
-    app = App()
-
     def signal_handler(signal_num=None, frame=None):
-        print('looping out')
-        app.stop_server()
-        sys.exit(1)
+        """Gracefully handle a SIGINT - triggered by Ctrl+c"""
+        def flush():
+            sys.stderr.write("\n")
+            sys.stderr.flush()
+        try:
+            global handling_sigint
+            if handling_sigint:
+                # If they give another interrupt signal during handling, exit
+                flush()
+                sys.exit(1)
+            else:
+                handling_sigint = True
+            flush()
+            ans = '.'
+            while ans and ans not in 'nN':
+                sys.stderr.write("Do you want to quit? (y/N): ")
+                sys.stderr.flush()
+                try:
+                    ans = sys.stdin.readline().strip()
+                except RuntimeError:
+                    # avoid crashing due to standard out collisions
+                    pass
+                if ans and ans in 'yY':
+                    sys.exit(1)
+            handling_sigint = False
+            flush()
+        except RuntimeError:
+            handling_sigint = False
+            pass
+
+
+    app = App()
 
     # Set the app to handle interrupt signal with our custom signal handler
     signal.signal(signal.SIGINT, signal_handler)
@@ -90,3 +124,6 @@ if __name__ == '__main__':
     except:
         print('looping out on accident')
         app.stop_server()
+        print(f'Killed: {app}')
+
+

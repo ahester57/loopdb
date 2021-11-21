@@ -9,6 +9,7 @@ falcon = "*"
 redis = "*"
 redisconnector = {path = "./redisconnector"}
 loopresources = {path = "./loopresources"}
+hiredis = "*"
 
 [dev-packages]
 
