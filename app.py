@@ -17,7 +17,7 @@ class App(object):
         else:
             self._redis_host = redis_host
         if (os.environ.get('LOOP_REDIS_PORT') is not None):
-            self._redis_port = os.environ.get('LOOP_REDIS_PORT')
+            self._redis_port = int(os.environ.get('LOOP_REDIS_PORT'))
         else:
             self._redis_port = redis_port
         self._redis_instance = RedisConnector(self._redis_host, self._redis_port)
@@ -33,7 +33,7 @@ class App(object):
         else:
             self._falcon_host = falcon_host
         if (os.environ.get('LOOP_FALCON_PORT') is not None):
-            self._falcon_port = os.environ.get('LOOP_FALCON_PORT')
+            self._falcon_port = int(os.environ.get('LOOP_FALCON_PORT'))
         else:
             self._falcon_port = falcon_port
         self.create_server()
